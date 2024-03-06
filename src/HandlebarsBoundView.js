@@ -50,6 +50,7 @@ class HandlebarsBoundView {
         Handlebars.registerHelper("bind", function (prop) {
             base.bindHandles.push({
                 prop: prop,
+                data: this,
             });
             var index = base.bindHandles.length - 1;
             return `data-bind='${index}'`;
@@ -147,20 +148,33 @@ class HandlebarsBoundView {
             const index = parseInt(element.getAttribute("data-bind"), 10);
             const handle = base.bindHandles[index];
 
+            var propName = handle.prop;
+            var data = null;
+
+            if (propName.startsWith("base.")) {
+                data = base;
+                propName = handle.prop.substring(5);
+            } else if (propName.startsWith("this.")) {
+                data = handle.data;
+                propName = handle.prop.substring(5);
+            } else {
+                data = handle.data;
+            }
+
             // For input elements like textboxes, this sets the value
             if (
                 element.tagName === "INPUT" ||
                 element.tagName === "SELECT" ||
                 element.tagName === "TEXTAREA"
             ) {
-                element.value = base[handle.prop];
+                element.value = data[propName];
             } else {
                 // For other elements, you might want to set their innerHTML or textContent
-                element.textContent = base[handle.prop];
+                element.textContent = data[propName];
             }
 
             element.addEventListener("change", function () {
-                base[handle.prop] = element.value; // Assumes value is appropriate for all uses
+                data[propName] = element.value; // Assumes value is appropriate for all uses
                 base.render();
             });
         });

@@ -156,13 +156,12 @@ class Widget1 extends HandlebarsBoundView {
         this.city = "";
     }
 
-     selectCountry(args) {
-          this.country = args.country;
-          this.city = args.cities[0].name;
+    selectCountry(args) {
+        this.country = args.country;
+        this.city = args.cities[0].name;
     }
 
-     selectCity(data) {
-          console.log(data);
-     }
-
+    selectCity(data) {
+        console.log(data);
+    }
 }

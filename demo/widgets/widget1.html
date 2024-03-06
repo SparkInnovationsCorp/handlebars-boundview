@@ -11,7 +11,7 @@
 			{{#each citiesByCountry}}
 				{{#if (eq this.country ../country)}}
 				<div>Choose a city: (demos control bind)</div>
-				<select {{{bind 'city'}}}>
+				<select {{{bind "base.city"}}}>
 					{{#each this.cities}}
 					<option value="{{name}}">{{name}}</option>
 					{{/each}}
@@ -30,7 +30,8 @@
 				{{#if (eq this.country ../country)}}
 					{{#each cities}}
 						{{#if (eq this.name ../../city)}} 
-							{{this.blurb}}
+							<div>Edit the decsription: (demos control binding of textarea onto an array item)</div>
+							<textarea {{{bind "this.blurb"}}}></textarea>
 						{{/if}}
 					{{/each}}
 				{{/if}}

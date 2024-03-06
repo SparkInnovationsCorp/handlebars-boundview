@@ -13,6 +13,15 @@ class HandlebarsBoundView {
         this.bindHandles = [];
         const base = this;
 
+        if (!this.valid()) return;
+
+        if (typeof Handlebars === "undefined") {
+            console.error(
+                "Handlebars.js is not installed. Please make sure to include it in your project."
+            );
+            return;
+        }
+
         Handlebars.registerHelper("eq", function (arg1, arg2) {
             return arg1 === arg2;
         });
@@ -67,6 +76,10 @@ class HandlebarsBoundView {
                 return "";
             }
         });
+
+        Handlebars.registerHelper("nullOrEmpty", function (value) {
+            return value === null || value === undefined || value === "";
+        });
     }
 
     loadTemplate(callback) {
@@ -100,10 +113,12 @@ class HandlebarsBoundView {
     render() {
         this.onclickHandles = [];
         this.bindHandles = [];
+        if (!this.valid()) return;
         this.loadTemplate(() => {
             const html = this.template(this);
 
             const targetElement = document.querySelector(this.target);
+
             if (targetElement) {
                 targetElement.innerHTML = html;
             } else {
@@ -161,6 +176,16 @@ class HandlebarsBoundView {
                 data = handle.data;
             }
 
+            // Handling nested properties
+            if (propName.includes(".") || propName.includes("[")) {
+                const { targetObject, finalProp } = this.resolveNested(
+                    data,
+                    propName
+                );
+                data = targetObject;
+                propName = finalProp;
+            }
+
             // For input elements like textboxes, this sets the value
             if (
                 element.tagName === "INPUT" ||
@@ -180,6 +205,19 @@ class HandlebarsBoundView {
         });
     }
 
+    resolveNested(base, path) {
+        const props = path.replace(/\[(\w+)\]/g, ".$1").split("."); // Convert indexes to properties
+        let targetObject = base;
+        for (let i = 0; i < props.length - 1; i++) {
+            const propName = props[i];
+            if (!(propName in targetObject))
+                throw new Error(`Property ${propName} not found`);
+            targetObject = targetObject[propName];
+        }
+        const finalProp = props[props.length - 1];
+        return { targetObject, finalProp };
+    }
+
     serialize() {
         var replacer = function (key, value) {
             var excludeKeys = [
@@ -196,5 +234,15 @@ class HandlebarsBoundView {
         };
 
         return JSON.stringify(this, replacer);
+    }
+
+    valid() {
+        if (typeof Handlebars === "undefined") {
+            console.error(
+                "Handlebars.js is not installed. Please make sure to include it in your project."
+            );
+            return false;
+        }
+        return true;
     }
 }

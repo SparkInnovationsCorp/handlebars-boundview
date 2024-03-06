@@ -75,8 +75,11 @@ To use control binding, add a `bind` attribute to an HTML element in your Handle
 Please note, binding to 'this' will bind to the local data structure in handlebars.  Binding to 'base' binds to the base of the controller class.
 
 ```html
-<!-- Template example with control binding -->
+<!-- Template example with control binding to local data available to handlebars -->
 <input type="text" {{{bind "this.propertyName"}}} />
+
+<!-- Template example with control binding to root of controller class -->
+<input type="text" {{{bind "base.propertyName"}}} />
 
 
 ### Event Binding

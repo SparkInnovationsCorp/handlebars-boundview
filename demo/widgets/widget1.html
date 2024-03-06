@@ -1,0 +1,41 @@
+<div id="countries">
+	<div>Choose a country: (demos click bind)</div>
+	{{#each citiesByCountry}}
+	<button type="button" data-country="{{country}}" {{{click 'selectCountry'}}}>{{country}}</button>
+	{{/each}}
+</div>
+
+{{#if (neq this.country '')}}
+	<div id="cities" style="margin-top: 20px;">
+		{{#if country}}
+			{{#each citiesByCountry}}
+				{{#if (eq this.country ../country)}}
+				<div>Choose a city: (demos control bind)</div>
+				<select {{{bind 'city'}}}>
+					{{#each this.cities}}
+					<option value="{{name}}">{{name}}</option>
+					{{/each}}
+				</select>
+
+				{{/if}}
+			{{/each}}
+		{{/if}}
+	</div>
+{{/if}}
+
+{{#if (neq this.city '')}}
+	<div id="desc" style="margin-top: 20px;">
+		{{#if country}}
+			{{#each citiesByCountry}}
+				{{#if (eq this.country ../country)}}
+					{{#each cities}}
+						{{#if (eq this.name ../../city)}} 
+							{{this.blurb}}
+						{{/if}}
+					{{/each}}
+				{{/if}}
+			{{/each}}
+		{{/if}}
+	</div>
+{{/if}}
+

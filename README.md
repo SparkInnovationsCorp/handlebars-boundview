@@ -2,7 +2,7 @@
 
 The `HandlebarsBoundView` class provides a robust framework for developers to seamlessly integrate Handlebars templates with dynamic data and events in web applications. It is designed to facilitate the creation of reactive UI components, significantly reducing the boilerplate code typically associated with handling template rendering and data binding.
 
-To utilize the HandlebarsBoundView class effectively, a developer simply needs to create a model that inherits from the HandlebarsBoundView class. Upon instantiation of their model, the developer specifies a target div where the content will be rendered, as well as the path to an HTML template. Following this setup, the template is automatically loaded, bound to the model, and then rendered within the specified target div. This model has the capability to manually trigger re-rendering as needed. Additionally, it intelligently tracks changes to its properties through UI bindings—such as those initiated by bind or click events—and automatically re-renders the content to reflect these changes. This mechanism ensures that the UI stays in sync with the underlying data model, providing a seamless and reactive user experience.
+To effectively utilize the HandlebarsBoundView class, a developer needs to create a model that inherits from this class. During the instantiation of their model, the developer specifies a target div (passed in via the constructor) where the content will be rendered, and optionally, the path to an HTML template (which can be associated directly in the class or passed in as well). Upon initializing the class into an object, the template is automatically loaded, bound to the model, and rendered within the specified target div. This model is equipped with the capability to manually trigger re-rendering whenever necessary. Moreover, it smartly monitors changes to its properties through UI bindings—initiated by bind or click events—and autonomously re-renders the content to mirror these changes accurately. This functionality ensures that the UI remains consistently updated in alignment with the underlying data model, thereby facilitating a seamless and interactive user experience.
 
 ## Features
 
@@ -24,7 +24,6 @@ The `HandlebarsBoundView` class is designed to scale with the complexity of your
 - **Two-Way Binding on an Entire Page**: You can leverage the class to manage the state and interactions across an entire web page, creating a cohesive and interactive user experience.
   
 - **Multiple Instances Controlling Different Widgets**: It supports the instantiation of multiple components on the same page, each controlling different widgets or sections. This feature is particularly useful for building complex applications with modular components that need to operate independently yet cohesively.
-
 
 ### Prerequisites
 
@@ -106,6 +105,22 @@ Use the built-in methods to attach events to your template elements:
 handleClick() {
     console.log('Button was clicked!');
 }
+```
+
+
+## Handling CSS Transitions with Care
+
+When reacting to events, this component diligently monitors for any changes within the model, and upon detection, it refreshes the view by updating the changed DOM elements. This behavior, however, may interfere with CSS transitions if you are just making css or style changes that are dependent on class modifications.
+
+To mitigate this challenge, we've introduced an optional boolean parameter for event bindings. This parameter allows you to deactivate the automatic view refresh functionality at the dom element level. Consequently, while the specified method (e.g., selectCountry(args)) will still be executed, the component will abstain from refreshing the view. This grants you the flexibility to manually manage class or style alterations directly via the DOM, ensuring your CSS transitions proceed uninterrupted on a case by case basis.
+
+```html
+<div id="countries">
+	<div>Choose a country: (demos click bind)</div>
+	{{#each citiesByCountry}}
+	<button type="button" data-country="{{country}}" {{{click 'selectCountry' false}}}>{{country}}</button>
+	{{/each}}
+</div>
 ```
 
 ## Contributing

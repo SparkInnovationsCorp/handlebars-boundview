@@ -130,11 +130,7 @@ To mitigate this challenge, we've introduced an optional boolean parameter for e
 
 ## Contributing
 
-Wanted: Time travelers, wizards, and coding enthusiasts! Your mission, should you choose to accept it, involves crafting pull requests filled with enhancements, bug fixes, or shiny new features. Dive into the magical world of our codebase, where every line of code you contribute brings us one step closer to world domination (or at least a really awesome project).
-
-Remember, with great power comes great responsibility. Use your coding powers for good, and together, we can make software history. Or at least have a good laugh trying. Submit your pull requests today and join our league of extraordinary developers!
-
-P.S.: Capes and superhero costumes are optional but highly encouraged during code submissions.
+I, Jason Bramble from Spark Communications Corp, personally maintain this repository due to its frequent use in my own projects. Contributions are welcome as long as they adhere to the project's ethos. Feel free to fork the project if you wish to explore a new direction. However, if you do fork, I kindly request a citation of the original source, in a comment or another appropriate form, as I value the acknowledgment.
 
 ## License
 

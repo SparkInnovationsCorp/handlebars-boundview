@@ -71,8 +71,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 ```
 
-## Advanced Features
-
 ## Control Binding with the `bind` Keyword
 
 Control binding is a powerful feature in `HandlebarsBoundView` that enables two-way data binding between your JavaScript object properties and HTML form elements. This mechanism keeps your UI in sync with your application's state without requiring additional code to update the UI manually when the data changes.
@@ -86,11 +84,17 @@ To use control binding, add a `bind` attribute to an HTML element in your Handle
 Please note, binding to 'this' will bind to the local data structure in handlebars.  Binding to 'base' binds to the base of the controller class.
 
 ```html
-<!-- Template example with control binding to local data available to handlebars -->
+
+### Binding Controls To Model Properties
+
+<!-- Template example with control binding to local data available to handlebars (works even in loops) -->
 <input type="text" {{{bind "this.propertyName"}}} />
 
 <!-- Template example with control binding to root of controller class -->
 <input type="text" {{{bind "base.propertyName"}}} />
+
+<!-- Deep linking into a object is supported -->
+<input type="text" {{{bind "base.user.location.cityName"}}} />
 
 
 ### Event Binding
@@ -107,6 +111,7 @@ handleClick() {
 }
 ```
 
+Also note, binding to a input[type=checkbox] will result in a true or false bound value.  Binding to input[type=number] types will result in a numeric bound value.  All else will result in string bound values.
 
 ## Handling CSS Transitions with Care
 

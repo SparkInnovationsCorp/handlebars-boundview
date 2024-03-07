@@ -95,7 +95,7 @@ Please note, binding to 'this' will bind to the local data structure in handleba
 
 <!-- Deep linking into a object is supported -->
 <input type="text" {{{bind "base.user.location.cityName"}}} />
-
+```
 
 ### Event Binding
 
@@ -106,8 +106,8 @@ Use the built-in methods to attach events to your template elements:
 ```
 
 ```javascript
-handleClick() {
-    console.log('Button was clicked!');
+handleClick(args) {
+    console.log('Button was clicked on current nesting level in handlebars', args);
 }
 ```
 

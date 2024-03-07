@@ -128,6 +128,15 @@ To mitigate this challenge, we've introduced an optional boolean parameter for e
 </div>
 ```
 
+Even though we are changing the model here, the page will not refresh because we passed in a 'false' for the second parameter on the click event binding.
+
+```javascript
+handleClick(args) {
+    this.country = args.country;
+    //do something cool manually modifying a class or style, and transitions will work!  woohoo!
+}
+```
+
 ## Contributing
 
 I, Jason Bramble from Spark Communications Corp, personally maintain this repository due to its frequent use in my own projects. Contributions are welcome as long as they adhere to the project's ethos. Feel free to fork the project if you wish to explore a new direction. However, if you do fork, I kindly request a citation of the original source, in a comment or another appropriate form, as I value the acknowledgment.

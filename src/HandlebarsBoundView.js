@@ -186,20 +186,26 @@ class HandlebarsBoundView {
                 propName = finalProp;
             }
 
-            // For input elements like textboxes, this sets the value
-            if (
+            if (element.tagName === "INPUT" && element.type === "checkbox") {
+                element.checked = data[propName];
+            } else if (
                 element.tagName === "INPUT" ||
                 element.tagName === "SELECT" ||
                 element.tagName === "TEXTAREA"
             ) {
                 element.value = data[propName];
             } else {
-                // For other elements, you might want to set their innerHTML or textContent
                 element.textContent = data[propName];
             }
 
             element.addEventListener("change", function () {
-                data[propName] = element.value; // Assumes value is appropriate for all uses
+                if (element.type === "checkbox") {
+                    data[propName] = element.checked;
+                } else if (element.type === "number") {
+                    data[propName] = parseFloat(element.value);
+                } else {
+                    data[propName] = element.value;
+                }
                 base.render();
             });
         });

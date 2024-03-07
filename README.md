@@ -121,9 +121,9 @@ To mitigate this challenge, we've introduced an optional boolean parameter for e
 
 ```html
 <div id="countries">
-	<div>Choose a country: (demos click bind)</div>
+	<div>Click on a country!</div>
 	{{#each citiesByCountry}}
-	<button type="button" data-country="{{country}}" {{{click 'selectCountry' false}}}>{{country}}</button>
+	<button type="button" {{{click 'selectCountry' false}}}>{{country}}</button>
 	{{/each}}
 </div>
 ```
